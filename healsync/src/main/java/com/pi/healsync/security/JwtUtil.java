@@ -2,6 +2,7 @@ package com.pi.healsync.security;
 import org.springframework.stereotype.Component;
 import java.util.*;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -28,9 +29,9 @@ public class JwtUtil {
         this.key = Keys.hmacShaKeyFor(secretBytes);
     }
 
-    public String generateToken(String username, UUID id) {
+    public String generateToken(String email, UUID id) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(email)
                 .claim("id", id.toString())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -39,10 +40,29 @@ public class JwtUtil {
 
     public String validateToken(String token) {
         try {
-            return Jwts.parserBuilder().setSigningKey(key).build()
-                    .parseClaimsJws(token).getBody().getSubject();
+            return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody().getSubject();
         } catch (JwtException e) {
             return null;
         }
+    }
+
+    public Claims extractAllClaims(String token) {
+        try {
+            return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        } catch (JwtException e) {
+            return null;
+        }
+    }
+
+    public UUID extractId(String token){
+        return UUID.fromString(extractAllClaims(token).get("id", String.class));
     }
 }

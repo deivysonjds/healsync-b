@@ -29,9 +29,9 @@ public class HospitalController {
     @Autowired
     private HospitalService service;
 
-    @PostMapping("/")
+    @PostMapping("/register")
     public ResponseEntity<HospitalResponseDTO> addHospital(@RequestBody HospitalRequestDTO dto) {
-
+        System.out.println(dto);
         Hospital hospital = new Hospital(dto);
 
         HospitalResponseDTO hospitalDTO = service.insert(hospital);

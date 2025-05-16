@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtFilter extends OncePerRequestFilter  {
 
-    @Autowired
+@Autowired
     private JwtUtil jwtUtil;
 
     @Override   
@@ -28,13 +28,16 @@ public class JwtFilter extends OncePerRequestFilter  {
         @NonNull HttpServletResponse response,
         @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        String authHeader = request.getHeader("token");
-        if (authHeader != null) {
-            String jwt = authHeader.substring(7);
-            String username = jwtUtil.validateToken(jwt);
-            if (username != null) {
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+
+            String email = jwtUtil.validateToken(token);
+
+            if (email != null) {
                 UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
+                        new UsernamePasswordAuthenticationToken(email, null, Collections.emptyList());
                 auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
