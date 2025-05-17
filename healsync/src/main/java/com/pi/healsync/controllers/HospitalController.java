@@ -8,6 +8,7 @@ import com.pi.healsync.DTO.HospitalRequestDTO;
 import com.pi.healsync.DTO.HospitalResponseDTO;
 import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.models.Hospital;
+import com.pi.healsync.security.JwtUtil;
 import com.pi.healsync.services.HospitalService;
 
 import java.net.URI;
@@ -16,24 +17,25 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 
 @RestController
-@RequestMapping(value = "hospital")
+@RequestMapping(value = "/hospital")
 public class HospitalController {
-
+    @Autowired
+    private JwtUtil jwtUtil;
     @Autowired
     private HospitalService service;
 
     @PostMapping("/register")
     public ResponseEntity<HospitalResponseDTO> addHospital(@RequestBody HospitalRequestDTO dto) {
-        System.out.println(dto);
-        Hospital hospital = new Hospital(dto);
 
+        Hospital hospital = new Hospital(dto);
+        
         HospitalResponseDTO hospitalDTO = service.insert(hospital);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(hospitalDTO.getId())
 				.toUri();
@@ -41,14 +43,17 @@ public class HospitalController {
     }
     
 
-    @GetMapping("/{id}")
-    public ResponseEntity<HospitalResponseDTO> getHospitalById(@PathVariable UUID id) {
+    @GetMapping("/")
+    public ResponseEntity<HospitalResponseDTO> getHospitalById(@RequestHeader("Authorization") String authToken) {
         HospitalResponseDTO hospitalDTO;
-            try {
-                hospitalDTO = service.findByID(id);
-            } catch (NoSuchException e) {
-                throw new NoSuchException("hospital");
-            }
+        String token = authToken.substring(7);
+
+        UUID id = jwtUtil.extractId(token);
+        try {
+            hospitalDTO = service.findByID(id);
+        } catch (NoSuchException e) {
+            throw new NoSuchException("hospital");
+        }
 
         return ResponseEntity.ok(hospitalDTO);
     }

@@ -10,7 +10,8 @@ spring.jpa.hibernate.ddl-auto=update
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
 
-spring.security.oauth2.resourceserver.jwt.secret-key=Yk9xNFVXbzRnM3NwRmY3eWhNMjNDMnlpRzFvUG9jMmZsMEpITzhqZw==
+# inserir chave aqui
+spring.security.oauth2.resourceserver.jwt.secret-key=
 
 jwt.secret-key=${spring.security.oauth2.resourceserver.jwt.secret-key}
 jwt.expiration=360000

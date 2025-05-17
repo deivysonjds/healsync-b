@@ -15,7 +15,7 @@ import java.security.Key;
 
 @Component
 public class JwtUtil {
-    @Value("${jwt.secret}")
+    @Value("${spring.security.oauth2.resourceserver.jwt.secret-key}")
     private String secret;
 
     @Value("${jwt.expiration}")

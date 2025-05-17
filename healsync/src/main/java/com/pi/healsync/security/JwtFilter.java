@@ -29,19 +29,22 @@ public class JwtFilter extends OncePerRequestFilter  {
         @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
+        System.out.println("Authorization Header: " + authHeader);
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
 
             String email = jwtUtil.validateToken(token);
-
+            System.out.println("Token valid? Email: " + email);
             if (email != null) {
                 UsernamePasswordAuthenticationToken auth =
                         new UsernamePasswordAuthenticationToken(email, null, Collections.emptyList());
                 auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                System.out.println("Authentication set in context");
             }
         }
+        System.out.println("No Bearer token found in Authorization header");
 
         filterChain.doFilter(request, response);
     }
