@@ -22,10 +22,16 @@ public class SecurityConfig {
         @Bean
         protected DefaultSecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/h2-console/**")
+                        .disable())
+                .headers(headers -> headers
+                .frameOptions(frame -> frame.sameOrigin())
+                )
                 .authorizeHttpRequests((authorize)-> authorize
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/hospital/register").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

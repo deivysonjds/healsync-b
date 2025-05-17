@@ -25,7 +25,9 @@ public class Hospital {
     @Column(nullable = false)
     private String senha;
 
-    public Hospital(){}
+    public Hospital(){
+        id = UUID.randomUUID();
+    }
 
     public Hospital(HospitalRequestDTO dto){
         id = UUID.randomUUID();

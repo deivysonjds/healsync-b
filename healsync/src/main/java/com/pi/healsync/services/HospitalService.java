@@ -33,7 +33,7 @@ public class HospitalService {
         try {
             hospitalRepository = repository.save(hospital);
         } catch (Exception e) {
-            throw new ObjectNotCreated();
+            throw new ObjectNotCreated(e);
         }
 
         HospitalResponseDTO hospitaResponselDTO = new HospitalResponseDTO(hospitalRepository);
