@@ -35,7 +35,7 @@ public class AuthService {
 
         Hospital hospital = hospitalOptional.get();
 
-        if (!passwordEncoder.matches(senha, hospital.getSenha())) {
+        if (!passwordEncoder.matches(senha, hospital.getPassword())) {
             throw new PasswordInvalid();
         }
 

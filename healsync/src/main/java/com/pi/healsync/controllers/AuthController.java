@@ -24,7 +24,7 @@ public class AuthController {
     public ResponseEntity<String> authProfile(@RequestBody Auth auth){
         String token;
         try {
-            token = service.authenticateUser(auth.getEmail(), auth.getSenha());
+            token = service.authenticateUser(auth.getEmail(), auth.getPassword());
         } catch (NoSuchException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("usuário não encontrado");
         } catch (PasswordInvalid e) {

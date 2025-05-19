@@ -24,8 +24,9 @@ public class DatabaseSeeder implements CommandLineRunner {
             Hospital hospital = new Hospital();
             hospital.setName("Restauração");
             hospital.setCnpj("12345678000195");
-            hospital.setSenha("rest123#");
+            hospital.setPassword("rest123#");
             hospital.setEmail("restauracao@gmail.com");
+            hospital.setPhone("81912345678");
 
             service.insert(hospital);
         }

@@ -27,8 +27,8 @@ public class HospitalService {
 
         Hospital hospitalRepository;
 
-        String senhaEncode = passwordEncoder.encode(hospital.getSenha());
-        hospital.setSenha(senhaEncode);
+        String senhaEncode = passwordEncoder.encode(hospital.getPassword());
+        hospital.setPassword(senhaEncode);
 
         try {
             hospitalRepository = repository.save(hospital);

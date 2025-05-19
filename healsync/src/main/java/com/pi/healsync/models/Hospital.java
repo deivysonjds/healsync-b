@@ -23,7 +23,9 @@ public class Hospital {
     @Column(unique = true, nullable = false)
     private String email;
     @Column(nullable = false)
-    private String senha;
+    private String password;
+    @Column(unique = true, nullable = false)
+    private String phone;
 
     public Hospital(){
         id = UUID.randomUUID();
@@ -34,14 +36,16 @@ public class Hospital {
         name = dto.getName();
         cnpj = dto.getCnpj();
         email = dto.getEmail();
-        senha = dto.getSenha();
+        phone = dto.getPhone();
+        password = dto.getPassword();
     }
-
-    public Hospital(String name, String cnpj, String email, String senha) {
+    
+    public Hospital(String name, String cnpj, String email, String password, String phone) {
         id = UUID.randomUUID();
         this.name = name;
         this.cnpj = cnpj;
         this.email = email;
-        this.senha = senha;
+        this.phone = phone;
+        this.password = password;
     }
 }

@@ -11,7 +11,8 @@ public class HospitalRequestDTO {
     private String name;
     private String cnpj;
     private String email;
-    private String senha;
+    private String password;
+    private String phone;
 
     public HospitalRequestDTO(){}
     
@@ -19,6 +20,7 @@ public class HospitalRequestDTO {
         name = hospital.getName();
         cnpj = hospital.getCnpj();
         email = hospital.getEmail();
-        senha = hospital.getSenha();
+        password = hospital.getPassword();
+        phone = hospital.getPhone();
     }
 }
