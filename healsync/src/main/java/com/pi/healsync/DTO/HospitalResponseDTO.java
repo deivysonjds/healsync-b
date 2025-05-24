@@ -4,6 +4,9 @@ import java.util.UUID;
 
 import com.pi.healsync.models.Hospital;
 
+import lombok.Getter;
+
+@Getter
 public class HospitalResponseDTO {
     private UUID id;
     private String name;
@@ -17,8 +20,4 @@ public class HospitalResponseDTO {
         this.phone = hospital.getPhone();
     }
 
-    public UUID getId() { return id; }
-    public String getName() { return name; }
-    public String getEmail() { return email; }
-    public String getPhone() {return phone; }
 }
