@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pi.healsync.DTO.HospitalResponseDTO;
 import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.exceptions.ObjectNotCreated;
 import com.pi.healsync.models.Hospital;
@@ -23,31 +22,29 @@ public class HospitalService {
     private HospitalRepository repository;
 
     @Transactional
-    public HospitalResponseDTO insert(Hospital hospital){
+    public Hospital insert(Hospital hospital){
 
-        Hospital hospitalRepository;
+        Hospital hospitalRep;
 
         String senhaEncode = passwordEncoder.encode(hospital.getPassword());
         hospital.setPassword(senhaEncode);
 
         try {
-            hospitalRepository = repository.save(hospital);
+            hospitalRep = repository.save(hospital);
         } catch (Exception e) {
             throw new ObjectNotCreated(e);
         }
-
-        HospitalResponseDTO hospitaResponselDTO = new HospitalResponseDTO(hospitalRepository);
-        return hospitaResponselDTO;
+        return hospitalRep;
     }
 
     @Transactional
-    public HospitalResponseDTO findByID(UUID id){
+    public Hospital findByID(UUID id){
         Optional<Hospital> hospital = repository.findById(id);
 
         if (!hospital.isPresent()) {
             throw new NoSuchException("Hospital");
         }
 
-        return new HospitalResponseDTO(hospital.get());
+        return hospital.get();
     }
 }

@@ -1,11 +1,17 @@
 package com.pi.healsync.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import com.pi.healsync.DTO.HospitalRequestDTO;
@@ -15,6 +21,7 @@ import com.pi.healsync.DTO.HospitalRequestDTO;
 @Getter
 public class Hospital {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(nullable = false)
     private String name;
@@ -27,12 +34,13 @@ public class Hospital {
     @Column(unique = true, nullable = false)
     private String phone;
 
-    public Hospital(){
-        id = UUID.randomUUID();
-    }
+    @Column
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
+    private List<Unidade> unidades = new ArrayList<>();
+
+    public Hospital(){}
 
     public Hospital(HospitalRequestDTO dto){
-        id = UUID.randomUUID();
         name = dto.getName();
         cnpj = dto.getCnpj();
         email = dto.getEmail();
@@ -41,7 +49,6 @@ public class Hospital {
     }
     
     public Hospital(String name, String cnpj, String email, String password, String phone) {
-        id = UUID.randomUUID();
         this.name = name;
         this.cnpj = cnpj;
         this.email = email;
