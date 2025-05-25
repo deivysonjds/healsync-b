@@ -2,6 +2,8 @@ package com.pi.healsync.models;
 
 import java.util.UUID;
 
+import com.pi.healsync.DTO.UnidadeRequestDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,12 +26,20 @@ public class Unidade {
     private UUID id;
     @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
+    private String endereco;
 
     @ManyToOne
-    @JoinColumn(name = "hospital_id")
+    @JoinColumn(name = "hospital_id", nullable = false)
     private Hospital hospital;
 
-    public Unidade(String name){
+    public Unidade(String name, String endereco){
         this.name = name;
+        this.endereco = endereco;
+    }
+
+    public Unidade(UnidadeRequestDto unidadeRequestDto){
+        name = unidadeRequestDto.getName();
+        endereco = unidadeRequestDto.getEndereco();
     }
 }

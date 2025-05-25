@@ -7,12 +7,12 @@ import com.pi.healsync.models.Unidade;
 import lombok.Getter;
 
 @Getter
-public class UnidadeRespondeDto {
+public class UnidadeResponseDto {
 
     private UUID id;
     private String name;
 
-    public UnidadeRespondeDto (Unidade unidade){
+    public UnidadeResponseDto (Unidade unidade){
         id = unidade.getId();
         name = unidade.getName();
     }

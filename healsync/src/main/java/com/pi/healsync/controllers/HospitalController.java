@@ -36,26 +36,29 @@ public class HospitalController {
 
         Hospital hospital = new Hospital(dto);
         
-        HospitalResponseDTO hospitalDTO = service.insert(hospital);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(hospitalDTO.getId())
+        hospital = service.insert(hospital);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(hospital.getId())
 				.toUri();
-        return ResponseEntity.created(uri).body(hospitalDTO);
+        
+        HospitalResponseDTO responseDto = new HospitalResponseDTO(hospital);
+        return ResponseEntity.created(uri).body(responseDto);
     }
     
 
     @GetMapping("/")
     public ResponseEntity<HospitalResponseDTO> getHospitalById(@RequestHeader("Authorization") String authToken) {
-        HospitalResponseDTO hospitalDTO;
+        Hospital hospital;
         String token = authToken.substring(7);
 
         UUID id = jwtUtil.extractId(token);
         try {
-            hospitalDTO = service.findByID(id);
+            hospital = service.findByID(id);
         } catch (NoSuchException e) {
             throw new NoSuchException("hospital");
         }
 
-        return ResponseEntity.ok(hospitalDTO);
+        HospitalResponseDTO dto = new HospitalResponseDTO(hospital);
+        return ResponseEntity.ok(dto);
     }
     
 }

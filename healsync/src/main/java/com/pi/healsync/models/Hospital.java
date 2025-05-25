@@ -10,6 +10,7 @@ import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +36,7 @@ public class Hospital {
 
     @Column
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
-    private List<Unidade> unidades;
+    private List<Unidade> unidades = new ArrayList<>();
 
     public Hospital(){}
 
