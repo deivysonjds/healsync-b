@@ -21,7 +21,7 @@ public class SalaDeEspera {
     public SalaDeEspera() {
     }
 
-    public SalaDeEspera(String id, String sala) {
+    public SalaDeEspera(UUID id, String sala) {
         this.id = id;
         this.sala = sala;
     }

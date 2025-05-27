@@ -41,4 +41,15 @@ public class SalaDeEsperaService {
 
         return sala.get();
     }
+
+    @Transactional(readOnly = true)
+    public SalaDeEspera findBySala(String nomeSala) {
+        SalaDeEspera sala = repository.findBySala(nomeSala);
+
+        if (sala == null) {
+            throw new NoSuchException("Sala de Espera com nome: " + nomeSala);
+        }
+
+        return sala;
+    }
 }

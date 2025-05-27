@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SalaDeEsperaRepository extends JpaRepository<SalaDeEspera, String> {
+public interface SalaDeEsperaRepository extends JpaRepository<SalaDeEspera, UUID> {
     SalaDeEspera findBySala(String sala);
 }
