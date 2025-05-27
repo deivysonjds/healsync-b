@@ -29,12 +29,15 @@ public class Endereco {
     @Column(nullable = false)
     private String uf;
 
+    @OneToOne
+    @JoinColumn(name = "unidade_id", nullable = false)
+    private Unidade unidade;
+
     public Endereco(){
         id = UUID.randomUUID();
     }
 
     public Endereco(EnderecoRequestDTO dto){
-        id = UUID.randomUUID();
         rua = dto.getRua();
         bairro = dto.getBairro();
         numero = dto.getNumero();
@@ -45,7 +48,6 @@ public class Endereco {
     }
 
     public Endereco(String rua, String bairro, int numero, String cidade, int cep, String complemento, String uf) {
-        id = UUID.randomUUID();
         this.rua = rua;
         this.bairro = bairro;
         this.numero = numero;
