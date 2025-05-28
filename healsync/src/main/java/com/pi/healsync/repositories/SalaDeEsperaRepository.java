@@ -1,6 +1,9 @@
-package main.java.com.pi.healsync.repositories;
+package com.pi.healsync.repositories;
 
 import com.pi.healsync.models.SalaDeEspera;
+
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

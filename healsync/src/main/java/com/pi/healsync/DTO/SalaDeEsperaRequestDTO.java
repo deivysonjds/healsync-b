@@ -1,6 +1,5 @@
-package main.java.com.pi.healsync.DTO;
+package com.pi.healsync.DTO;
 
-import jakarta.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +8,6 @@ import lombok.Setter;
 @Setter
 public class SalaDeEsperaRequestDTO {
 
-    @NotBlank(message = "O nome da sala é obrigatório.")
     private String sala;
 
     public SalaDeEsperaRequestDTO() {

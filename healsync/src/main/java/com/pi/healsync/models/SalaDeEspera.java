@@ -1,4 +1,4 @@
-package main.java.com.pi.healsync.models;
+package com.pi.healsync.models;
 
 import java.util.UUID;
 import jakarta.persistence.Column;

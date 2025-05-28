@@ -1,16 +1,21 @@
-package main.java.com.pi.healsync.controllers;
+package com.pi.healsync.controllers;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pi.healsync.dtos.SalaDeEsperaRequestDTO;
-import com.pi.healsync.dtos.SalaDeEsperaResponseDTO;
+import com.pi.healsync.DTO.SalaDeEsperaRequestDTO;
+import com.pi.healsync.DTO.SalaDeEsperaResponseDTO;
 import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.models.SalaDeEspera;
 import com.pi.healsync.services.SalaDeEsperaService;
@@ -40,13 +45,21 @@ public class SalaDeEsperaController {
     public ResponseEntity<SalaDeEsperaResponseDTO> getSalaById(@PathVariable UUID id) {
         SalaDeEspera sala;
 
-        try {
-            sala = service.findById(id);
-        } catch (NoSuchException e) {
-            throw new NoSuchException("Sala de Espera");
-        }
+        sala = service.findById(id);
 
         SalaDeEsperaResponseDTO dto = new SalaDeEsperaResponseDTO(sala.getId(), sala.getSala());
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<SalaDeEsperaResponseDTO>> getAllSalas() {
+        List<SalaDeEspera> salas = service.findAll();
+
+        // Converter para DTOs
+        List<SalaDeEsperaResponseDTO> dtos = salas.stream()
+                .map(sala -> new SalaDeEsperaResponseDTO(sala.getId(), sala.getSala()))
+                .toList();
+
+        return ResponseEntity.ok(dtos);
     }
 }
