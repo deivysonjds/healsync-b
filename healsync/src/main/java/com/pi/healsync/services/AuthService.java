@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.exceptions.PasswordInvalid;
-import com.pi.healsync.models.Hospital;
-import com.pi.healsync.repositories.HospitalRepository;
+import com.pi.healsync.models.Funcionario;
+import com.pi.healsync.repositories.FuncionarioRepository;
 import com.pi.healsync.security.JwtUtil;
 
 @Service
@@ -19,7 +19,7 @@ public class AuthService {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private HospitalRepository repository;
+    private FuncionarioRepository repository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -27,19 +27,19 @@ public class AuthService {
     @Transactional(readOnly = true)
     public String authenticateUser(String email, String senha){
 
-        Optional<Hospital> hospitalOptional = repository.findByEmail(email);
+        Optional<Funcionario> funcionarioOptional = repository.findByEmail(email);
 
-        if (!hospitalOptional.isPresent()) {
-            throw new NoSuchException("Hospital");
+        if (!funcionarioOptional.isPresent()) {
+            throw new NoSuchException("funcionario");
         }
 
-        Hospital hospital = hospitalOptional.get();
+        Funcionario funcionario = funcionarioOptional.get();
 
-        if (!passwordEncoder.matches(senha, hospital.getPassword())) {
+        if (!passwordEncoder.matches(senha, funcionario.getSenha())) {
             throw new PasswordInvalid();
         }
 
-        String token = jwtUtil.generateToken(email, hospital.getId());
+        String token = jwtUtil.generateToken(email, funcionario.getId());
 
         return token;
     }

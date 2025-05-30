@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 @MappedSuperclass
 @Getter
 @Setter
-@NoargsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
     @Id
@@ -34,6 +34,13 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     private String rg;
 
+    public Usuario(String name, String email, String cpf, String endereco, String telefone, String rg){
+        this.name = name;
+        this.email = email;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.rg = rg;
+    }
     
-
 }
