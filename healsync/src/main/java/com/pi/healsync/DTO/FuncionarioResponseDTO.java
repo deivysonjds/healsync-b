@@ -1,5 +1,10 @@
 package com.pi.healsync.DTO;
 import lombok.NoArgsConstructor;
+
+import java.util.UUID;
+
+import com.pi.healsync.models.Funcionario;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FuncionarioResponseDTO {
+    private UUID id;
     private String name;
     private String email;
     private String cpf;
@@ -18,15 +24,13 @@ public class FuncionarioResponseDTO {
     private String role;
 
     public FuncionarioResponseDTO(Funcionario funcionario) {
-        this.name = funcionario.getName();
-        this.email = funcionario.getEmail();
-        this.cpf = funcionario.getCpf();
-        this.endereco = funcionario.getEndereco();
-        this.telefone = funcionario.getTelefone();
-        this.rg = funcionario.getRg();
-        this.role = funcionario.getRole();
+        id = funcionario.getId();
+        name = funcionario.getName();
+        email = funcionario.getEmail();
+        cpf = funcionario.getCpf();
+        endereco = funcionario.getEndereco();
+        telefone = funcionario.getTelefone();
+        rg = funcionario.getRg();
+        role = funcionario.getRole();
     }
-
- 
-
 }

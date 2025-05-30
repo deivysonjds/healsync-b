@@ -7,14 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, UUID> {
-   
-
     Optional<Funcionario> findByEmail(String email);
     Optional<Funcionario> findByCpf(String cpf);
     Optional<Funcionario> findByRg(String rg);
-
-    
-
-
 }
 

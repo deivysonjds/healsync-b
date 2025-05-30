@@ -29,8 +29,6 @@ public class Hospital {
     private String cnpj;
     @Column(unique = true, nullable = false)
     private String email;
-    @Column(nullable = false)
-    private String password;
     @Column(unique = true, nullable = false)
     private String phone;
 
@@ -45,14 +43,12 @@ public class Hospital {
         cnpj = dto.getCnpj();
         email = dto.getEmail();
         phone = dto.getPhone();
-        password = dto.getPassword();
     }
     
-    public Hospital(String name, String cnpj, String email, String password, String phone) {
+    public Hospital(String name, String cnpj, String email, String phone) {
         this.name = name;
         this.cnpj = cnpj;
         this.email = email;
         this.phone = phone;
-        this.password = password;
     }
 }

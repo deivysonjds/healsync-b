@@ -16,7 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pi.healsync.DTO.SalaDeEsperaRequestDTO;
 import com.pi.healsync.DTO.SalaDeEsperaResponseDTO;
-import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.models.SalaDeEspera;
 import com.pi.healsync.services.SalaDeEsperaService;
 

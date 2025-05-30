@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,17 +16,12 @@ import com.pi.healsync.repositories.HospitalRepository;
 public class HospitalService {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
     private HospitalRepository repository;
 
     @Transactional
     public Hospital insert(Hospital hospital){
 
         Hospital hospitalRep;
-
-        String senhaEncode = passwordEncoder.encode(hospital.getPassword());
-        hospital.setPassword(senhaEncode);
 
         try {
             hospitalRep = repository.save(hospital);

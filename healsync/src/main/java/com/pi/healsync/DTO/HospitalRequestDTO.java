@@ -20,7 +20,6 @@ public class HospitalRequestDTO {
         name = hospital.getName();
         cnpj = hospital.getCnpj();
         email = hospital.getEmail();
-        password = hospital.getPassword();
         phone = hospital.getPhone();
     }
 }
