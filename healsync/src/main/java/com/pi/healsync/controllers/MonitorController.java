@@ -1,0 +1,57 @@
+package com.pi.healsync.controllers;
+
+import com.pi.healsync.DTO.MonitorRequestDTO;
+import com.pi.healsync.DTO.MonitorResponseDTO;
+import com.pi.healsync.exceptions.NoSuchException;
+import com.pi.healsync.models.Monitor;
+import com.pi.healsync.security.JwtUtil;
+
+import com.pi.healsync.services.MonitorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.UUID;
+
+@RestController
+@RequestMapping(value = "/monitor")
+public class MonitorController {
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private MonitorService service;
+
+    @PostMapping("/register")
+        public ResponseEntity<MonitorResponseDTO> addMonitor(@RequestBody MonitorRequestDTO dto){
+
+        Monitor monitor = new Monitor(dto);
+
+        Monitor = service.insert(Monitor);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(Monitor.getId())
+                .toUri();
+
+        MonitorResponseDTO responseDto = new MonitorResponseDTO(monitor);
+        return ResponseEntity.created(uri).body(responseDto);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<MonitorResponseDTO> getMonitorById(@RequestHeader("Authorization") String authToken) {
+
+        Monitor monitor;
+        String token = authToken.substring(7);
+
+        UUID id = jwtUtil.extractId(token);
+        try {
+            Monitor = service.findById(id);
+        } catch (NoSuchException e) {
+            throw new NoSuchException("Monitor");
+        }
+
+        MonitorResponseDTO dto = new MonitorResponseDTO(monitor);
+        return ResponseEntity.ok(dto);
+    }
+}
