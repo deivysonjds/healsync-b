@@ -2,6 +2,8 @@ package com.pi.healsync.models;
 
 import java.util.UUID;
 
+import com.pi.healsync.DTO.atendimento.AtendimentoRequestDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,4 +26,9 @@ public class Atendimento {
     private int ordem;
     @Column(nullable = false)
     private String sala;
+
+    public Atendimento(AtendimentoRequestDTO dto) {
+        ordem = dto.getOrdem();
+        sala = dto.getSala();
+    }
 }
