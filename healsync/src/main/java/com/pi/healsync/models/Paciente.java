@@ -1,6 +1,8 @@
 package com.pi.healsync.models;
 
 
+import com.pi.healsync.DTO.paciente.PacienteRequestDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
@@ -23,6 +25,12 @@ public class Paciente extends Usuario {
                     String cns) {
         super(name, email, cpf, endereco, telefone, rg);
         this.cns = cns;
+    }
+
+    public Paciente(PacienteRequestDTO pacienteRequestDTO) {
+        super(pacienteRequestDTO.getName(), pacienteRequestDTO.getEmail(), pacienteRequestDTO.getCpf(),
+              pacienteRequestDTO.getEndereco(), pacienteRequestDTO.getTelefone(), pacienteRequestDTO.getRg());
+        this.cns = pacienteRequestDTO.getCns();
     }
 
 }

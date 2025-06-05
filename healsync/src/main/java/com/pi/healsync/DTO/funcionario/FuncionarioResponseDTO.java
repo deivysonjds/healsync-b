@@ -17,6 +17,7 @@ public class FuncionarioResponseDTO {
     private UUID id;
     private String name;
     private String email;
+    private int age;
     private String cpf;
     private String endereco;
     private String telefone;
@@ -32,5 +33,6 @@ public class FuncionarioResponseDTO {
         telefone = funcionario.getTelefone();
         rg = funcionario.getRg();
         role = funcionario.getRole();
+        age = funcionario.getAge();
     }
 }
