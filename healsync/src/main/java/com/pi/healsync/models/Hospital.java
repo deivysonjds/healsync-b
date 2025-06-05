@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.pi.healsync.DTO.HospitalRequestDTO;
+import com.pi.healsync.DTO.hospital.HospitalRequestDTO;
 
 @Entity
 @Setter

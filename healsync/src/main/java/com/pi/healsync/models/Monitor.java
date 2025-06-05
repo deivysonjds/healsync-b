@@ -5,33 +5,29 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.UUID;
-import com.pi.healsync.DTO.MonitorRequestDTO;
+
+import com.pi.healsync.DTO.monitor.MonitorRequestDTO;
 @Entity
 @Getter
 @Setter
 public class Monitor {
-    @Id
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
+  @Column(nullable = false, unique = true)
   private long numeroTombamento;
 
-  @OneToOne
-  @JoinColumn(Name="unidade_id",nullable=false)
+  @ManyToOne
+  @JoinColumn(name="unidade_id",nullable=false)
   private Unidade unidade;
-  @OnetoOne
-  @JoinColumn(name="salaEspera_id",nullable=true)
-  private SalaEspera salaEspera;
-  @OnetoOne
-  @JoinColumn(name="atendimento_id",nullable=true)
-  private Atendimento atendimento;
+
+  @ManyToOne
+  @JoinColumn(name="sala_id",nullable=true)
+  private SalaDeEspera sala;
 
   public Monitor(MonitorRequestDTO dto){
-    numeroTombamento=dto.getNumeroTombamento;
+    numeroTombamento=dto.getNumeroTombamento();
         
-    }
-
-    public Monitor(long numeroTombamento) {
-      this.numeroTombamento = numeroTombamento;
-        
-    }
-  
+    }  
   
 }

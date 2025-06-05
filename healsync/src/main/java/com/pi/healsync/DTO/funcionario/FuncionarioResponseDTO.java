@@ -1,4 +1,4 @@
-package com.pi.healsync.DTO;
+package com.pi.healsync.DTO.funcionario;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;

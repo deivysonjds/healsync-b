@@ -1,8 +1,8 @@
 package com.pi.healsync.controllers;
 
 
-import com.pi.healsync.DTO.EnderecoRequestDTO;
-import com.pi.healsync.DTO.EnderecoResponseDTO;
+import com.pi.healsync.DTO.endereco.EnderecoRequestDTO;
+import com.pi.healsync.DTO.endereco.EnderecoResponseDTO;
 import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.models.Endereco;
 import com.pi.healsync.security.JwtUtil;

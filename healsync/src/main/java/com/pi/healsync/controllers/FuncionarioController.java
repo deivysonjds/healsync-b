@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.pi.healsync.DTO.FuncionarioRequestDTO;
-import com.pi.healsync.DTO.FuncionarioResponseDTO;
+import com.pi.healsync.DTO.funcionario.FuncionarioRequestDTO;
+import com.pi.healsync.DTO.funcionario.FuncionarioResponseDTO;
 import com.pi.healsync.models.Funcionario;
 import com.pi.healsync.services.FuncionarioService;
 

@@ -1,7 +1,7 @@
 package com.pi.healsync.controllers;
 
-import com.pi.healsync.DTO.MonitorRequestDTO;
-import com.pi.healsync.DTO.MonitorResponseDTO;
+import com.pi.healsync.DTO.monitor.MonitorRequestDTO;
+import com.pi.healsync.DTO.monitor.MonitorResponseDTO;
 import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.models.Monitor;
 import com.pi.healsync.security.JwtUtil;
@@ -30,8 +30,8 @@ public class MonitorController {
 
         Monitor monitor = new Monitor(dto);
 
-        Monitor = service.insert(Monitor);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(Monitor.getId())
+        monitor = service.insert(monitor);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand()
                 .toUri();
 
         MonitorResponseDTO responseDto = new MonitorResponseDTO(monitor);
@@ -46,7 +46,7 @@ public class MonitorController {
 
         UUID id = jwtUtil.extractId(token);
         try {
-            Monitor = service.findById(id);
+            monitor = service.findById(id);
         } catch (NoSuchException e) {
             throw new NoSuchException("Monitor");
         }
