@@ -25,7 +25,7 @@ public class MonitorController {
     @Autowired
     private MonitorService service;
 
-    @PostMapping("/register")
+    @PostMapping
         public ResponseEntity<MonitorResponseDTO> addMonitor(@RequestBody MonitorRequestDTO dto){
 
         Monitor monitor = new Monitor(dto);

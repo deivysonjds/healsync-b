@@ -26,7 +26,7 @@ public class SalaDeEsperaController {
     @Autowired
     private SalaDeEsperaService service;
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<SalaDeEsperaResponseDTO> addSala(@RequestBody SalaDeEsperaRequestDTO dto) {
         SalaDeEspera sala = new SalaDeEspera(UUID.randomUUID(), dto.getSala());
         sala = service.insert(sala);

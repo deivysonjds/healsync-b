@@ -46,7 +46,7 @@ public class PacienteService {
     }
 
     @Transactional
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         if (!pacienteRepository.existsById(id)) {
             throw new NoSuchException("paciente");
         }

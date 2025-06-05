@@ -27,7 +27,7 @@ public class AtendimentoController {
     @Autowired
     private AtendimentoService atendimentoService;
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<AtendimentoResponseDTO> insert(@RequestBody AtendimentoRequestDTO dto) {
         
         Atendimento atendimento = new Atendimento(dto);
