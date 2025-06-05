@@ -24,7 +24,7 @@ public class FuncionarioController {
     @Autowired
     private FuncionarioService funcionarioService;
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<FuncionarioResponseDTO> createFuncionario(@RequestBody FuncionarioRequestDTO funcionarioRequest) {
         Funcionario funcionario = new Funcionario(funcionarioRequest);
 

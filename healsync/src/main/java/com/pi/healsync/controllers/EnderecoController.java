@@ -26,7 +26,7 @@ public class EnderecoController {
     @Autowired
     private EnderecoService service;
 
-    @PostMapping("/")
+    @PostMapping
         public ResponseEntity<EnderecoResponseDTO> addEndereco(@RequestBody EnderecoRequestDTO dto){
 
         Endereco endereco = new Endereco(dto);

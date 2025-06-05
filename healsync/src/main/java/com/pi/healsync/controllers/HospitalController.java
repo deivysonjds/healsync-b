@@ -29,7 +29,7 @@ public class HospitalController {
     @Autowired
     private HospitalService service;
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<HospitalResponseDTO> addHospital(@RequestBody HospitalRequestDTO dto) {
 
         Hospital hospital = new Hospital(dto);

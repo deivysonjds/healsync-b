@@ -34,7 +34,7 @@ public class UnidadeController {
     @Autowired
     private HospitalService hospitalService;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<UnidadeResponseDto> insert(
         @RequestBody UnidadeRequestDto unidadeRequestDto, 
         @RequestHeader("Authorization") String authToken

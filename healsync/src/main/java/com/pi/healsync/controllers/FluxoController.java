@@ -19,16 +19,19 @@ import com.pi.healsync.services.FluxoService;
 public class FluxoController {
     @Autowired
     private FluxoService service;
+
     @PostMapping
     public ResponseEntity <Fluxo> postFluxo (Fluxo fluxo) {
         Fluxo savedFluxo = service.insert(fluxo);
         return ResponseEntity.ok().body(savedFluxo);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity <Fluxo> getById (@PathVariable UUID id) {
         Fluxo getFluxo = service.findById(id);
         return ResponseEntity.ok().body(getFluxo);
     }
+    
     @GetMapping
     public ResponseEntity <List<Fluxo>> getAll () {
         List <Fluxo> fluxos = service.getAll();
