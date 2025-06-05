@@ -28,12 +28,6 @@ public class Monitor {
   public Monitor(MonitorRequestDTO dto){
     numeroTombamento=dto.getNumeroTombamento();
         
-    }
-
-  public Monitor(long numeroTombamento) {
-    this.numeroTombamento = numeroTombamento;
-      
-  }
-  
+    }  
   
 }
