@@ -1,4 +1,4 @@
-package com.pi.healsync.DTO;
+package com.pi.healsync.DTO.monitor;
 
 import com.pi.healsync.models.Monitor;
 
@@ -10,7 +10,6 @@ import lombok.Setter;
 public class MonitorRequestDTO {
     private long numeroTombamento;
    
-
     public MonitorRequestDTO(){}
 
     public MonitorRequestDTO(Monitor monitor){

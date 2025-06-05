@@ -29,7 +29,9 @@ public Monitor insert(Monitor monitor){
 
   @Transactional
     public Monitor findById(UUID id){
-    f (!monitor.isPresent()) {
+        Optional<Monitor> monitor = monitorRepository.findById(id);
+
+        if (!monitor.isPresent()) {
             throw new NoSuchException("Monitor");
         }
 

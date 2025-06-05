@@ -1,4 +1,4 @@
-package com.pi.healsync.DTO;
+package com.pi.healsync.DTO.endereco;
 
 import com.pi.healsync.models.Endereco;
 

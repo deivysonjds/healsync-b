@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-import com.pi.healsync.DTO.EnderecoRequestDTO;
+import com.pi.healsync.DTO.endereco.EnderecoRequestDTO;
 
 @Entity
 @Getter

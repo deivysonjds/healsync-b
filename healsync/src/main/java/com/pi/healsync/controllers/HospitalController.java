@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pi.healsync.DTO.HospitalRequestDTO;
-import com.pi.healsync.DTO.HospitalResponseDTO;
+import com.pi.healsync.DTO.hospital.HospitalRequestDTO;
+import com.pi.healsync.DTO.hospital.HospitalResponseDTO;
 import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.models.Hospital;
 import com.pi.healsync.security.JwtUtil;

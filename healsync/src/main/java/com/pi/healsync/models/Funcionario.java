@@ -3,7 +3,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
-import com.pi.healsync.DTO.FuncionarioRequestDTO;
+import com.pi.healsync.DTO.funcionario.FuncionarioRequestDTO;
 
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
