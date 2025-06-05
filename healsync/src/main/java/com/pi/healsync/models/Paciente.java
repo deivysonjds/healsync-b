@@ -25,5 +25,4 @@ public class Paciente extends Usuario {
         this.cns = cns;
     }
 
-    
 }
