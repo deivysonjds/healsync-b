@@ -2,7 +2,7 @@ package com.pi.healsync.models;
 
 import java.util.UUID;
 
-import com.pi.healsync.DTO.UnidadeRequestDto;
+import com.pi.healsync.DTO.unidade.UnidadeRequestDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

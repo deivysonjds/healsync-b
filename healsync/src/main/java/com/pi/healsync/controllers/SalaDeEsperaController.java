@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pi.healsync.DTO.SalaDeEsperaRequestDTO;
-import com.pi.healsync.DTO.SalaDeEsperaResponseDTO;
+import com.pi.healsync.DTO.salaespera.SalaDeEsperaRequestDTO;
+import com.pi.healsync.DTO.salaespera.SalaDeEsperaResponseDTO;
 import com.pi.healsync.models.SalaDeEspera;
 import com.pi.healsync.services.SalaDeEsperaService;
 

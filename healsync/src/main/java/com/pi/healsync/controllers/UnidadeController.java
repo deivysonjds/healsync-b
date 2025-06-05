@@ -3,8 +3,8 @@ package com.pi.healsync.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pi.healsync.DTO.UnidadeRequestDto;
-import com.pi.healsync.DTO.UnidadeResponseDto;
+import com.pi.healsync.DTO.unidade.UnidadeRequestDto;
+import com.pi.healsync.DTO.unidade.UnidadeResponseDto;
 import com.pi.healsync.models.Hospital;
 import com.pi.healsync.models.Unidade;
 import com.pi.healsync.security.JwtUtil;

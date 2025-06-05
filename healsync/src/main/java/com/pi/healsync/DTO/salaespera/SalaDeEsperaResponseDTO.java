@@ -1,4 +1,4 @@
-package com.pi.healsync.DTO;
+package com.pi.healsync.DTO.salaespera;
 
 import lombok.Getter;
 import lombok.Setter;
