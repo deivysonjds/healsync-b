@@ -28,7 +28,6 @@ public class Funcionario extends Usuario {
 
     @ManyToOne
     @JoinColumn(name = "unidade_id", nullable = true)
-    @Column(nullable = true)
     private Unidade unidade;
 
     public Funcionario(FuncionarioRequestDTO funcionarioRequestDTO) {
