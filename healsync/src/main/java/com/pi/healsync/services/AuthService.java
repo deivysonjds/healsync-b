@@ -39,7 +39,7 @@ public class AuthService {
             throw new PasswordInvalid();
         }
 
-        String token = jwtUtil.generateToken(email, funcionario.getId());
+        String token = jwtUtil.generateToken(email, funcionario.getId(), funcionario.getId() );
 
         return token;
     }

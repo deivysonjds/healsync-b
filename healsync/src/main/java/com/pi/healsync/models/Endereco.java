@@ -1,7 +1,9 @@
 package com.pi.healsync.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
@@ -11,6 +13,8 @@ import com.pi.healsync.DTO.endereco.EnderecoRequestDTO;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,18 +28,14 @@ public class Endereco {
     @Column(nullable = false)
     private String cidade;
     @Column(nullable = false)
-    private int cep;
+    private String cep;
     private String complemento;
     @Column(nullable = false)
     private String uf;
 
-    @OneToOne
-    @JoinColumn(name = "unidade_id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "unidade_id", nullable = true)
     private Unidade unidade;
-
-    public Endereco(){
-        id = UUID.randomUUID();
-    }
 
     public Endereco(EnderecoRequestDTO dto){
         rua = dto.getRua();
@@ -45,16 +45,6 @@ public class Endereco {
         cep = dto.getCep();
         complemento = dto.getComplemento();
         uf = dto.getUf();
-    }
-
-    public Endereco(String rua, String bairro, int numero, String cidade, int cep, String complemento, String uf) {
-        this.rua = rua;
-        this.bairro = bairro;
-        this.numero = numero;
-        this.cidade = cidade;
-        this.cep = cep;
-        this.complemento = complemento;
-        this.uf = uf;
     }
 
 }
