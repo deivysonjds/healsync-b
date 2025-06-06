@@ -1,30 +1,23 @@
 package com.pi.healsync.DTO.endereco;
 
-import com.pi.healsync.models.Endereco;
+import java.util.UUID;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EnderecoRequestDTO {
     private String rua;
     private String bairro;
     private int numero;
     private String cidade;
-    private int cep;
+    private String cep;
     private String complemento;
     private String uf;
-
-    public EnderecoRequestDTO(){}
-
-    public EnderecoRequestDTO(Endereco endereco){
-        rua = endereco.getRua();
-        bairro = endereco.getBairro();
-        numero = endereco.getNumero();
-        cidade = endereco.getCidade();
-        cep = endereco.getCep();
-        complemento = endereco.getComplemento();
-        uf = endereco.getUf();
-    }
+    private UUID unidade_id;
 }

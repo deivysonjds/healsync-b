@@ -5,9 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.healsync.DTO.unidade.UnidadeRequestDto;
 import com.pi.healsync.DTO.unidade.UnidadeResponseDto;
+import com.pi.healsync.models.Endereco;
 import com.pi.healsync.models.Hospital;
 import com.pi.healsync.models.Unidade;
 import com.pi.healsync.security.JwtUtil;
+import com.pi.healsync.services.EnderecoService;
 import com.pi.healsync.services.HospitalService;
 import com.pi.healsync.services.UnidadeService;
 
@@ -33,6 +35,8 @@ public class UnidadeController {
     private UnidadeService unidadeService;
     @Autowired
     private HospitalService hospitalService;
+    @Autowired
+    private EnderecoService enderecoService;
 
     @PostMapping
     public ResponseEntity<UnidadeResponseDto> insert(
@@ -44,6 +48,9 @@ public class UnidadeController {
 
         UUID hospitalId = jwtUtil.extractId(token);
         Unidade unidade = new Unidade(unidadeRequestDto);
+
+        Endereco endereco = enderecoService.findById(unidadeRequestDto.getEndereco());
+        unidade.setEndereco(endereco);
 
         unidade = unidadeService.insert(unidade, hospitalId);
 
@@ -70,8 +77,12 @@ public class UnidadeController {
     
     @GetMapping("/{id}")
     public ResponseEntity<UnidadeResponseDto> getById(@PathVariable UUID id) {
-
-        Unidade unidade = unidadeService.findById(id);
+        Unidade unidade;
+        try {
+            unidade = unidadeService.findById(id);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
 
         UnidadeResponseDto unidadeResponseDto = new UnidadeResponseDto(unidade);
 

@@ -17,4 +17,8 @@ public class Fluxo {
     private UUID id;
     @Column(nullable = false)
     private String nameEspecialist;
+
+    @ManyToOne
+    @JoinColumn(name = "unidade_id", nullable = false)
+    private Unidade unidade;
 }

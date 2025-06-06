@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 import com.pi.healsync.models.Funcionario;
+import com.pi.healsync.models.Roles;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class FuncionarioResponseDTO {
     private String endereco;
     private String telefone;
     private String rg;
-    private String role;
+    private Roles role;
 
     public FuncionarioResponseDTO(Funcionario funcionario) {
         id = funcionario.getId();

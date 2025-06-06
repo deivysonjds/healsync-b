@@ -13,7 +13,7 @@ public class EnderecoResponseDTO {
     private String bairro;
     private int numero;
     private String cidade;
-    private int cep;
+    private String cep;
     private String complemento;
     private String uf;
 

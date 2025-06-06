@@ -15,7 +15,7 @@ public class SalaDeEspera {
     @Id
     private UUID id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true)
     private String sala;
 
     public SalaDeEspera() {

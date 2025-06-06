@@ -3,8 +3,6 @@ package com.pi.healsync.services;
 import java.util.List;
 import java.util.UUID;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
