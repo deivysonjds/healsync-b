@@ -1,8 +1,5 @@
 {
   "build": {
-    "pre": "apt-get update && apt-get install -y temurin-21-jdk",
-    "env": {
-      "JAVA_HOME": "/usr/lib/jvm/temurin-21-jdk"
-    }
+    "pre": "apt-get update && apt-get install -y temurin-21-jdk && ls -la /usr/lib/jvm/ > jvm_contents.txt"
   }
 }
