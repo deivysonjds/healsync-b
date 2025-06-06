@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +26,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Unidade {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -43,18 +45,18 @@ public class Unidade {
     @JoinColumn(name = "paciente_id", nullable = true)
     private List<Paciente> pacientes;
 
-    public Unidade(String name, Endereco endereco){
-        this.name = name;
-        this.endereco = endereco;
-        if (this.pacientes == null) {
-            this.pacientes = new ArrayList<>();
-        }
-    }
+    @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
+    @JoinColumn(name = "paciente_id", nullable = true)
+    private List<Funcionario> funcionarios;
 
     public Unidade(UnidadeRequestDto unidadeRequestDto){
         name = unidadeRequestDto.getName();
+
         if (this.pacientes == null) {
             this.pacientes = new ArrayList<>();
+        }
+        if( this.funcionarios == null) {
+            this.funcionarios = new ArrayList<>();
         }
     }
 }
