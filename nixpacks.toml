@@ -1,11 +1,6 @@
-[phases.setup]
-packages = ["openjdk", "bash"]
-
-[phases.build]
-commands = [
-  "cd healsync",
-  "./gradlew build"
-]
+[build]
+  builder = "gradle"
+  buildCommand = "cd healsync && ./gradlew build"
 
 [start]
-cmd = "java -jar healsync/build/libs/healsync-0.0.1-SNAPSHOT.jar"
+  cmd = "java -jar healsync/build/libs/healsync-0.0.1-SNAPSHOT.jar"
