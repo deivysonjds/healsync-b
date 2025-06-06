@@ -9,6 +9,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 
 @Entity
@@ -23,6 +25,11 @@ public class Funcionario extends Usuario {
     private Roles role;
     @Column(nullable = false)
     private String senha;
+
+    @ManyToOne
+    @JoinColumn(name = "unidade_id", nullable = true)
+    @Column(nullable = true)
+    private Unidade unidade;
 
     public Funcionario(FuncionarioRequestDTO funcionarioRequestDTO) {
         super(funcionarioRequestDTO.getName(), funcionarioRequestDTO.getEmail(), funcionarioRequestDTO.getCpf(),
