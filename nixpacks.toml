@@ -1,7 +1,7 @@
 [build]
   language = "java"
   builder = "gradle"
-  buildCommand = "./gradlew build"
+  buildCommand = "cd healsync && ./gradlew build"
 
 [start]
   cmd = "java -jar healsync/build/libs/healsync-0.0.1-SNAPSHOT.jar"
