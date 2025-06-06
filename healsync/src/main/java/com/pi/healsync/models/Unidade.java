@@ -33,6 +33,7 @@ public class Unidade {
     private UUID id;
     @Column(nullable = false)
     private String name;
+    
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id",nullable = false)
     private Endereco endereco;
@@ -46,8 +47,16 @@ public class Unidade {
     private List<Paciente> pacientes;
 
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
-    @JoinColumn(name = "paciente_id", nullable = true)
+    @JoinColumn(name = "funcionario_id", nullable = true)
     private List<Funcionario> funcionarios;
+
+    @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
+    @JoinColumn(name = "fluxo_id", nullable = true)
+    private List<Fluxo> fluxos;
+
+    @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
+    @JoinColumn(name = "monitor_id", nullable = true)
+    private List<Monitor> monitores;
 
     public Unidade(UnidadeRequestDto unidadeRequestDto){
         name = unidadeRequestDto.getName();
@@ -55,8 +64,17 @@ public class Unidade {
         if (this.pacientes == null) {
             this.pacientes = new ArrayList<>();
         }
+
         if( this.funcionarios == null) {
             this.funcionarios = new ArrayList<>();
+        }
+
+        if( this.fluxos == null) {
+            this.fluxos = new ArrayList<>();
+        }
+
+        if ( this.monitores == null) {
+            this.monitores = new ArrayList<>();
         }
     }
 }
