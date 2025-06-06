@@ -33,7 +33,7 @@ public class Unidade {
     private UUID id;
     @Column(nullable = false)
     private String name;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id",nullable = false)
     private Endereco endereco;
@@ -43,19 +43,15 @@ public class Unidade {
     private Hospital hospital;
 
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
-    @JoinColumn(name = "paciente_id", nullable = true)
     private List<Paciente> pacientes;
 
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
-    @JoinColumn(name = "funcionario_id", nullable = true)
     private List<Funcionario> funcionarios;
 
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
-    @JoinColumn(name = "fluxo_id", nullable = true)
     private List<Fluxo> fluxos;
 
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
-    @JoinColumn(name = "monitor_id", nullable = true)
     private List<Monitor> monitores;
 
     public Unidade(UnidadeRequestDto unidadeRequestDto){
