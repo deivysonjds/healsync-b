@@ -1,10 +1,16 @@
 [build]
 language = "java"
-builder = "gradle"
-buildCommand = "cd healsync && ./gradlew build"
+builder = "default"
+buildCommand = """
+export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+export PATH=$JAVA_HOME/bin:$PATH
+cd healsync
+chmod +x gradlew
+./gradlew build
+"""
 
 [start]
 cmd = "java -jar healsync/build/libs/healsync-0.0.1-SNAPSHOT.jar"
 
 [dependencies]
-packages = ["openjdk"]
+packages = ["openjdk-21"]
