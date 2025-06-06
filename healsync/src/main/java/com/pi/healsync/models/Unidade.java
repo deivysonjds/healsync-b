@@ -1,5 +1,7 @@
 package com.pi.healsync.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import com.pi.healsync.DTO.unidade.UnidadeRequestDto;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,13 +39,22 @@ public class Unidade {
     @JoinColumn(name = "hospital_id", nullable = false)
     private Hospital hospital;
 
+    @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL)
+    @JoinColumn(name = "paciente_id", nullable = true)
+    private List<Paciente> pacientes;
+
     public Unidade(String name, Endereco endereco){
         this.name = name;
         this.endereco = endereco;
+        if (this.pacientes == null) {
+            this.pacientes = new ArrayList<>();
+        }
     }
 
     public Unidade(UnidadeRequestDto unidadeRequestDto){
         name = unidadeRequestDto.getName();
-        endereco = unidadeRequestDto.getEndereco();
+        if (this.pacientes == null) {
+            this.pacientes = new ArrayList<>();
+        }
     }
 }
