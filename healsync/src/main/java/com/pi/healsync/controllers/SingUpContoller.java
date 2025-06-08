@@ -40,6 +40,7 @@ public class SingUpContoller {
             Funcionario funcionario = new Funcionario();
             funcionario.setName(dto.getNameUser());
             funcionario.setEmail(dto.getEmailUser());
+            funcionario.setAge(dto.getAge());
             funcionario.setTelefone(dto.getPhoneUser());
             funcionario.setCpf(dto.getCpf());
             funcionario.setSenha(dto.getPassword());
