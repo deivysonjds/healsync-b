@@ -25,6 +25,5 @@ public class SignUpDTO {
     private String cpf;
     private String phoneUser;
     private String rg;
-    private String role;
     private String password;
 }
