@@ -56,7 +56,8 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOriginPatterns(List.of(
             "http://localhost:*",
-            "https://healsync-f.vercel.app"
+            "https://healsync-f.vercel.app",
+            "healsync-f-deivyson-silvas-projects.vercel.app"
         ));
 
         config.setAllowedMethods(List.of("*"));
