@@ -28,6 +28,7 @@ public class SecurityConfig {
         @Bean
         protected DefaultSecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf
                     .ignoringRequestMatchers("/h2-console/**")
                     .ignoringRequestMatchers("/swagger-ui.html")
@@ -57,14 +58,8 @@ public class SecurityConfig {
             "http://localhost:*",
             "https://healsync-f.vercel.app"
         ));
-        config.setAllowedMethods(List.of(
-            HttpMethod.GET.name(),
-            HttpMethod.POST.name(),
-            HttpMethod.PUT.name(),
-            HttpMethod.DELETE.name(),
-            HttpMethod.OPTIONS.name()
-        ));
 
+        config.setAllowedMethods(List.of("*"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
         config.setMaxAge(3600L);
