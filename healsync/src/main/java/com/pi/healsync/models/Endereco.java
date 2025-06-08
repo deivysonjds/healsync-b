@@ -11,6 +11,7 @@ import java.util.UUID;
 import com.pi.healsync.DTO.endereco.EnderecoRequestDTO;
 
 @Entity
+@Table(name = "enderecos")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,10 +33,6 @@ public class Endereco {
     private String complemento;
     @Column(nullable = false)
     private String uf;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "unidade_id", nullable = true)
-    private Unidade unidade;
 
     public Endereco(EnderecoRequestDTO dto){
         rua = dto.getRua();

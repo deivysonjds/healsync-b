@@ -30,7 +30,6 @@ public class FuncionarioResponseDTO {
         name = funcionario.getName();
         email = funcionario.getEmail();
         cpf = funcionario.getCpf();
-        endereco = funcionario.getEndereco();
         telefone = funcionario.getTelefone();
         rg = funcionario.getRg();
         role = funcionario.getRole();

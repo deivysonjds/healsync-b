@@ -28,8 +28,9 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     private String cpf;
     
-    @Column(nullable = false)
-    private String endereco;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", nullable = true)
+    private Endereco endereco;
     
     @Column(nullable = false)
     private String telefone;
@@ -37,11 +38,10 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     private String rg;
 
-    public Usuario(String name, String email, String cpf, String endereco, String telefone, String rg){
+    public Usuario(String name, String email, String cpf, String telefone, String rg){
         this.name = name;
         this.email = email;
         this.cpf = cpf;
-        this.endereco = endereco;
         this.telefone = telefone;
         this.rg = rg;
     }

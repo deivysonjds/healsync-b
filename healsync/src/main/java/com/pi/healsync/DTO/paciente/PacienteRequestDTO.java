@@ -14,7 +14,6 @@ public class PacienteRequestDTO {
     private String email;
     private int age;
     private String cpf;
-    private String endereco;
     private String telefone;
     private String rg;
     private String cns;

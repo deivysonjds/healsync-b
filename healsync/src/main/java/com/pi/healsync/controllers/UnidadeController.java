@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.healsync.DTO.unidade.UnidadeRequestDto;
 import com.pi.healsync.DTO.unidade.UnidadeResponseDto;
+import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.models.Endereco;
 import com.pi.healsync.models.Hospital;
 import com.pi.healsync.models.Unidade;
@@ -12,6 +13,7 @@ import com.pi.healsync.security.JwtUtil;
 import com.pi.healsync.services.EnderecoService;
 import com.pi.healsync.services.HospitalService;
 import com.pi.healsync.services.UnidadeService;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -46,7 +48,7 @@ public class UnidadeController {
     {
         String token = authToken.substring(7);
 
-        UUID hospitalId = jwtUtil.extractId(token);
+        UUID hospitalId = jwtUtil.extractHospitalId(token);
         Unidade unidade = new Unidade(unidadeRequestDto);
 
         Endereco endereco = enderecoService.findById(unidadeRequestDto.getEndereco());
@@ -60,12 +62,25 @@ public class UnidadeController {
     
     @GetMapping
     public ResponseEntity<List<UnidadeResponseDto>> getAllByHospital(@RequestHeader("Authorization") String authToken) {
-
         String token = authToken.substring(7);
-        UUID hospitalId = jwtUtil.extractId(token);
+        UUID hospitalId;
+        try {
+            hospitalId = jwtUtil.extractHospitalId(token);
+            
+        } catch (NoSuchException e) {
+            return ResponseEntity.status(401).build();
+        }
 
-        Hospital hospital = hospitalService.findByID(hospitalId);
-        List<Unidade> unidades = unidadeService.findAllByHospital(hospital);
+        List<Unidade> unidades;
+
+        try {
+            Hospital hospital = hospitalService.findByID(hospitalId);
+            unidades = unidadeService.findAllByHospital(hospital);
+        } catch (NoSuchException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
 
         List<UnidadeResponseDto> unidadesDto = unidades
             .stream()

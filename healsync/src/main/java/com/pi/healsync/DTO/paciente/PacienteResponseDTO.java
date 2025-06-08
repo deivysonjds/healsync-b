@@ -29,7 +29,6 @@ public class PacienteResponseDTO {
         this.name = paciente.getName();
         this.email = paciente.getEmail();
         this.cpf = paciente.getCpf();
-        this.endereco = paciente.getEndereco();
         this.telefone = paciente.getTelefone();
         this.rg = paciente.getRg();
         this.cns = paciente.getCns();

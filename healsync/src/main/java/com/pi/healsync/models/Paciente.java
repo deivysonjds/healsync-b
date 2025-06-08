@@ -26,15 +26,15 @@ public class Paciente extends Usuario {
     @JoinColumn(name = "unidade_id", nullable = true)
     private Unidade unidade;
 
-    public Paciente(String name, String email, String cpf, String endereco, String telefone, String rg,
+    public Paciente(String name, String email, String cpf, String telefone, String rg,
                     String cns) {
-        super(name, email, cpf, endereco, telefone, rg);
+        super(name, email, cpf, telefone, rg);
         this.cns = cns;
     }
 
     public Paciente(PacienteRequestDTO pacienteRequestDTO) {
         super(pacienteRequestDTO.getName(), pacienteRequestDTO.getEmail(), pacienteRequestDTO.getCpf(),
-              pacienteRequestDTO.getEndereco(), pacienteRequestDTO.getTelefone(), pacienteRequestDTO.getRg());
+            pacienteRequestDTO.getTelefone(), pacienteRequestDTO.getRg());
         this.cns = pacienteRequestDTO.getCns();
     }
 

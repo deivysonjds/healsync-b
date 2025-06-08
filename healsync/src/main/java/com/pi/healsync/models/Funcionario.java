@@ -27,14 +27,22 @@ public class Funcionario extends Usuario {
     private String senha;
 
     @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private Hospital hospital;
+
+    @ManyToOne
     @JoinColumn(name = "unidade_id", nullable = true)
     private Unidade unidade;
 
     public Funcionario(FuncionarioRequestDTO funcionarioRequestDTO) {
         super(funcionarioRequestDTO.getName(), funcionarioRequestDTO.getEmail(), funcionarioRequestDTO.getCpf(),
-              funcionarioRequestDTO.getEndereco(), funcionarioRequestDTO.getTelefone(), funcionarioRequestDTO.getRg());
+             funcionarioRequestDTO.getPhone(), funcionarioRequestDTO.getRg());
         this.role = Roles.valueOf(funcionarioRequestDTO.getRole().toUpperCase());
-        this.senha = funcionarioRequestDTO.getSenha();
+        this.senha = funcionarioRequestDTO.getPassword();
+    }
+
+    public void setRole(String role) {
+        this.role = Roles.valueOf(role.toUpperCase());
     }
     
 }

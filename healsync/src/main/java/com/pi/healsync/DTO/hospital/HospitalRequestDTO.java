@@ -11,7 +11,6 @@ public class HospitalRequestDTO {
     private String name;
     private String cnpj;
     private String email;
-    private String password;
     private String phone;
 
     public HospitalRequestDTO(){}

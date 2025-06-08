@@ -1,7 +1,5 @@
 package com.pi.healsync.DTO.endereco;
 
-import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +17,4 @@ public class EnderecoRequestDTO {
     private String cep;
     private String complemento;
     private String uf;
-    private UUID unidade_id;
 }

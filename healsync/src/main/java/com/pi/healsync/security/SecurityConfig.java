@@ -54,7 +54,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOriginPatterns(List.of(
-            "http://localhost:*"
+            "http://localhost:*",
+            "https://healsync-f.vercel.app/*"
         ));
         config.setAllowedMethods(List.of(
             HttpMethod.GET.name(),
