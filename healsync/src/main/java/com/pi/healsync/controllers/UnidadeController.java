@@ -6,20 +6,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pi.healsync.DTO.unidade.UnidadeRequestDto;
 import com.pi.healsync.DTO.unidade.UnidadeResponseDto;
 import com.pi.healsync.exceptions.NoSuchException;
-import com.pi.healsync.models.Endereco;
+import com.pi.healsync.exceptions.ObjectNotCreated;
 import com.pi.healsync.models.Hospital;
 import com.pi.healsync.models.Unidade;
 import com.pi.healsync.security.JwtUtil;
-import com.pi.healsync.services.EnderecoService;
 import com.pi.healsync.services.HospitalService;
 import com.pi.healsync.services.UnidadeService;
-
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,8 +36,6 @@ public class UnidadeController {
     private UnidadeService unidadeService;
     @Autowired
     private HospitalService hospitalService;
-    @Autowired
-    private EnderecoService enderecoService;
 
     @PostMapping
     public ResponseEntity<UnidadeResponseDto> insert(
@@ -50,11 +47,11 @@ public class UnidadeController {
 
         UUID hospitalId = jwtUtil.extractHospitalId(token);
         Unidade unidade = new Unidade(unidadeRequestDto);
-
-        Endereco endereco = enderecoService.findById(unidadeRequestDto.getEndereco());
-        unidade.setEndereco(endereco);
-
-        unidade = unidadeService.insert(unidade, hospitalId);
+        try {
+            unidade = unidadeService.insert(unidade, hospitalId);
+        } catch (ObjectNotCreated e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 
         UnidadeResponseDto responseDto = new UnidadeResponseDto(unidade);
         return ResponseEntity.ok().body(responseDto);
@@ -64,12 +61,7 @@ public class UnidadeController {
     public ResponseEntity<List<UnidadeResponseDto>> getAllByHospital(@RequestHeader("Authorization") String authToken) {
         String token = authToken.substring(7);
         UUID hospitalId;
-        try {
-            hospitalId = jwtUtil.extractHospitalId(token);
-            
-        } catch (NoSuchException e) {
-            return ResponseEntity.status(401).build();
-        }
+        hospitalId = jwtUtil.extractHospitalId(token);
 
         List<Unidade> unidades;
 

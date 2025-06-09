@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.exceptions.ObjectNotCreated;
 import com.pi.healsync.models.Fluxo;
+import com.pi.healsync.models.Unidade;
 import com.pi.healsync.repositories.FluxoRepository;
 
 @Service
@@ -34,7 +35,7 @@ public class FluxoService {
         return optFluxo.get();
     }
     @Transactional (readOnly = true)
-    public List <Fluxo> getAll() {
-        return repository.findAll();
+    public List <Fluxo> getAllByUnidade(Unidade unidade) {
+        return repository.findAllByUnidade(unidade);
     }
 }

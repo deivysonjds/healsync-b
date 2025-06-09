@@ -3,6 +3,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
+import com.pi.healsync.models.Endereco;
 import com.pi.healsync.models.Funcionario;
 import com.pi.healsync.models.Roles;
 
@@ -20,7 +21,7 @@ public class FuncionarioResponseDTO {
     private String email;
     private int age;
     private String cpf;
-    private String endereco;
+    private Endereco endereco;
     private String telefone;
     private String rg;
     private Roles role;
@@ -34,5 +35,6 @@ public class FuncionarioResponseDTO {
         rg = funcionario.getRg();
         role = funcionario.getRole();
         age = funcionario.getAge();
+        endereco = funcionario.getEndereco();
     }
 }

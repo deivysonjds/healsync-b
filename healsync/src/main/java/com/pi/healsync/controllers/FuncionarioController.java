@@ -1,6 +1,5 @@
 package com.pi.healsync.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.pi.healsync.DTO.funcionario.FuncionarioRequestDTO;
 import com.pi.healsync.DTO.funcionario.FuncionarioResponseDTO;
+import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.models.Funcionario;
+import com.pi.healsync.security.JwtUtil;
 import com.pi.healsync.services.FuncionarioService;
 
 @RestController
@@ -23,6 +25,8 @@ public class FuncionarioController {
 
     @Autowired
     private FuncionarioService funcionarioService;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @PostMapping
     public ResponseEntity<FuncionarioResponseDTO> createFuncionario(@RequestBody FuncionarioRequestDTO funcionarioRequest) {
@@ -36,24 +40,22 @@ public class FuncionarioController {
     }
 
     @GetMapping
-    public ResponseEntity<FuncionarioResponseDTO> getFuncionarioById(
-        @RequestParam(required = false) UUID id,
-        @RequestParam(required = false) String email
-        ) {
+    public ResponseEntity<FuncionarioResponseDTO> getFuncionarioById(@RequestHeader("Authorization") String authToken) {
 
-        if(id != null){
-            Funcionario funcionario = funcionarioService.findById(id);
-            FuncionarioResponseDTO response = new FuncionarioResponseDTO(funcionario);
-            return ResponseEntity.ok(response);
+        String token = authToken.substring(7);
+        UUID userId = jwtUtil.extractId(token);
+        Funcionario funcionario;
+        try {
+            funcionario = funcionarioService.findById(userId);
+        } catch (NoSuchException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        if(email != null){
-            Funcionario funcionario = funcionarioService.findByEmail(email);
-            FuncionarioResponseDTO response = new FuncionarioResponseDTO(funcionario);
-            return ResponseEntity.ok(response);
-        }
+        FuncionarioResponseDTO funcionarioResponseDTO = new FuncionarioResponseDTO(funcionario);
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(funcionarioResponseDTO);
     }
 
 }

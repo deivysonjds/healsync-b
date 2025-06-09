@@ -33,4 +33,11 @@ public class AuthController {
         
         return ResponseEntity.ok().body(token);
     }
+
+    @PostMapping("validate")
+    public ResponseEntity<String> postMethodName() {
+        
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("validate");
+    }
+    
 }

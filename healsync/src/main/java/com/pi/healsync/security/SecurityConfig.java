@@ -49,7 +49,9 @@ public class SecurityConfig {
                     "/h2-console/**",
                     "/swagger-ui.html",
                     "/swagger-ui/**",
-                    "/v3/api-docs/**"
+                    "/v3/api-docs/**",
+                    "/favicon.ico",
+                    "/error"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
@@ -64,7 +66,7 @@ public class SecurityConfig {
         
         config
             .setAllowedOrigins(List.of(
-            "http://localhost:[*]",
+            "http://localhost:3000",
             "https://healsync-f.vercel.app",
             "https://healsync-f-*.vercel.app"
         ));

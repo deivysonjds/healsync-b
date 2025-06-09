@@ -1,6 +1,6 @@
 package com.pi.healsync.DTO.unidade;
 
-import java.util.UUID;
+import com.pi.healsync.models.Endereco;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,5 +13,5 @@ import lombok.Setter;
 @Setter
 public class UnidadeRequestDto {
     private String name;
-    private UUID endereco;
+    private Endereco endereco;
 }

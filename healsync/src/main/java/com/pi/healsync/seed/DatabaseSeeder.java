@@ -6,9 +6,11 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.pi.healsync.models.Endereco;
+import com.pi.healsync.models.Fluxo;
 import com.pi.healsync.models.Funcionario;
 import com.pi.healsync.models.Hospital;
 import com.pi.healsync.models.Unidade;
+import com.pi.healsync.services.FluxoService;
 import com.pi.healsync.services.FuncionarioService;
 import com.pi.healsync.services.HospitalService;
 import com.pi.healsync.services.UnidadeService;
@@ -25,6 +27,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     @Autowired
     private UnidadeService unidadeService;
+    @Autowired
+    private FluxoService fluxoService;
 
     @Override
     public void run(String... args){
@@ -52,6 +56,12 @@ public class DatabaseSeeder implements CommandLineRunner {
         unidade.setName("Unidade 1");
         unidade.setEndereco(endereco);
         unidade = unidadeService.insert(unidade, hospital.getId());
+
+        // FLUXO
+        Fluxo fluxo = new Fluxo();
+        fluxo.setNameEspecialist("Clínico Geral");
+        fluxo.setUnidade(unidade);
+        fluxoService.insert(fluxo);
 
         // FUNCIONÁRIO
         Funcionario funcionario = new Funcionario();
