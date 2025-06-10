@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi.healsync.DTO.atendimento.AtendimentoRequestDTO;
 import com.pi.healsync.DTO.atendimento.AtendimentoResponseDTO;
 import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.models.Atendimento;
+import com.pi.healsync.models.Fluxo;
 import com.pi.healsync.services.AtendimentoService;
+import com.pi.healsync.services.FluxoService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,11 +30,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class AtendimentoController {
     @Autowired
     private AtendimentoService atendimentoService;
+    @Autowired
+    private FluxoService fluxoService;
 
     @PostMapping
-    public ResponseEntity<AtendimentoResponseDTO> insert(@RequestBody AtendimentoRequestDTO dto) {
-        
-        Atendimento atendimento = new Atendimento(dto);
+    public ResponseEntity<AtendimentoResponseDTO> insert(@RequestBody AtendimentoRequestDTO dto, @RequestParam(required = true) UUID fluxoId) {
+        Fluxo fluxo = fluxoService.findById(fluxoId);
+        Atendimento atendimento = new Atendimento(dto, fluxo);
         try {
             atendimento = atendimentoService.insert(atendimento);
         } catch (Exception e) {
@@ -54,8 +60,8 @@ public class AtendimentoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Atendimento>> getAll() {
-        List<Atendimento> atendimentos = atendimentoService.findAll();
+    public ResponseEntity<List<Atendimento>> getAll(@RequestParam(required = true) UUID fluxoId) {
+        List<Atendimento> atendimentos = atendimentoService.findByFluxoId(fluxoId);
         if (atendimentos.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }

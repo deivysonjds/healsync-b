@@ -38,4 +38,24 @@ public class FluxoService {
     public List <Fluxo> getAllByUnidade(Unidade unidade) {
         return repository.findAllByUnidade(unidade);
     }
+
+    @Transactional
+    public void deleteById(UUID id) {
+        if (!repository.existsById(id)) {
+            throw new NoSuchException("Fluxo");
+        }
+        repository.deleteById(id);
+    }
+
+    @Transactional
+    public Fluxo update(Fluxo fluxo) {
+        if (!repository.existsById(fluxo.getId())) {
+            throw new NoSuchException("Fluxo");
+        }
+        try {
+            return repository.save(fluxo);
+        } catch (Exception e) {
+            throw new ObjectNotCreated(e);
+        }
+    }
 }

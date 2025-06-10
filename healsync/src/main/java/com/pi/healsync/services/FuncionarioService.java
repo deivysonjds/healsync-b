@@ -1,5 +1,6 @@
 package com.pi.healsync.services;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pi.healsync.repositories.FuncionarioRepository;
 import com.pi.healsync.exceptions.NoSuchException;
@@ -20,6 +21,7 @@ public class FuncionarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Transactional(readOnly = true)
     public Funcionario findByEmail(String email) {
         Optional<Funcionario> funcionario = funcionarioRepository.findByEmail(email);
 
@@ -30,6 +32,7 @@ public class FuncionarioService {
         return funcionario.get();
     }
 
+    @Transactional(readOnly = true)
     public Funcionario findById(UUID id) {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
 
@@ -40,6 +43,7 @@ public class FuncionarioService {
         return funcionario.get();
     }
 
+    @Transactional
     public Funcionario insert(Funcionario funcionario) {
         Funcionario funcionarioRep;
 
@@ -53,5 +57,29 @@ public class FuncionarioService {
         }
         return funcionarioRep;
     }
-    
+
+    @Transactional
+    public Funcionario update(Funcionario funcionario) {
+        if (!funcionarioRepository.existsById(funcionario.getId())) {
+            throw new NoSuchException("Funcionario");
+        }
+
+        String senhaEncode = passwordEncoder.encode(funcionario.getSenha());
+        funcionario.setSenha(senhaEncode);
+
+        try {
+            return funcionarioRepository.save(funcionario);
+        } catch (Exception e) {
+            throw new ObjectNotCreated(e);
+        }
+    }
+
+    @Transactional
+    public void deleteById(UUID id) {
+        if (!funcionarioRepository.existsById(id)) {
+            throw new NoSuchException("Funcionario");
+        }
+        funcionarioRepository.deleteById(id);
+    }
+
 }

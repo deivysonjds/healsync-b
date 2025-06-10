@@ -63,4 +63,24 @@ public class UnidadeService {
 
         return unidadeOptional.get();
     }
+
+    @Transactional
+    public void deleteById(UUID id) {
+        if (!unidadeRepository.existsById(id)) {
+            throw new NoSuchException("Unidade");
+        }
+        unidadeRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Unidade update(Unidade unidade) {
+        if (!unidadeRepository.existsById(unidade.getId())) {
+            throw new NoSuchException("Unidade");
+        }
+        try {
+            return unidadeRepository.save(unidade);
+        } catch (Exception e) {
+            throw new ObjectNotCreated(e);
+        }
+    }
 }

@@ -1,4 +1,5 @@
 package com.pi.healsync.models;
+import java.util.List;
 import java.util.UUID;
 
 import com.pi.healsync.DTO.fluxo.FluxoRequestDTO;
@@ -20,7 +21,9 @@ public class Fluxo {
     private UUID id;
     @Column(nullable = false)
     private String nameEspecialist;
-
+    @OneToMany(mappedBy = "fluxo", cascade = CascadeType.ALL)
+    private List<Atendimento> atendimentos;
+    
     @ManyToOne
     @JoinColumn(name = "unidade_id", nullable = false)
     private Unidade unidade;
