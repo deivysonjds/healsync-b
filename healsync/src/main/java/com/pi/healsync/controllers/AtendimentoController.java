@@ -1,7 +1,9 @@
 package com.pi.healsync.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,17 +36,22 @@ public class AtendimentoController {
     private FluxoService fluxoService;
 
     @PostMapping
-    public ResponseEntity<AtendimentoResponseDTO> insert(@RequestBody AtendimentoRequestDTO dto, @RequestParam(required = true) UUID fluxoId) {
+    public ResponseEntity<List<AtendimentoResponseDTO>> insert(@RequestBody List<AtendimentoRequestDTO> dto, @RequestParam(required = true) UUID fluxoId) {
         Fluxo fluxo = fluxoService.findById(fluxoId);
-        Atendimento atendimento = new Atendimento(dto, fluxo);
-        try {
-            atendimento = atendimentoService.insert(atendimento);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        List<Atendimento> atendimentos = new ArrayList<>();
+        for (AtendimentoRequestDTO atendimentoDto : dto) {
+            Atendimento atendimento = new Atendimento(atendimentoDto, fluxo);
+            try {
+                atendimento = atendimentoService.insert(atendimento);
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+            atendimentos.add(atendimento);
         }
-        
-        AtendimentoResponseDTO responseDto = new AtendimentoResponseDTO(atendimento);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+        List<AtendimentoResponseDTO> responseDtos = atendimentos.stream()
+                .map(AtendimentoResponseDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDtos);
     }
     
     @GetMapping("/{id}")
