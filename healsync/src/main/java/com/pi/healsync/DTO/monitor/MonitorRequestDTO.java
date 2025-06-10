@@ -1,19 +1,17 @@
 package com.pi.healsync.DTO.monitor;
 
-import com.pi.healsync.models.Monitor;
+import java.util.UUID;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MonitorRequestDTO {
     private long numeroTombamento;
-   
-    public MonitorRequestDTO(){}
-
-    public MonitorRequestDTO(Monitor monitor){
-      numeroTombamento = monitor.getNumeroTombamento();
-        
-    }
+    private UUID atendimentoId;
 }

@@ -1,6 +1,7 @@
 package com.pi.healsync.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import com.pi.healsync.DTO.monitor.MonitorRequestDTO;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Monitor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
@@ -20,17 +22,22 @@ public class Monitor {
 	@Column(nullable = false, unique = true)
 	private long numeroTombamento;
 
+	@Column(nullable = false)
+	private boolean inUse;
+
 	@ManyToOne
 	@JoinColumn(name = "unidade_id", nullable = false)
 	private Unidade unidade;
 
 	@ManyToOne
-	@JoinColumn(name = "sala_id", nullable = true)
-	private SalaDeEspera sala;
+	@JoinColumn(name = "atendimento_id", nullable = false)
+	private Atendimento atendimento;
 
-	public Monitor(MonitorRequestDTO dto) {
-		numeroTombamento = dto.getNumeroTombamento();
-
+	public Monitor(MonitorRequestDTO dto, Atendimento atendimento) {
+		this.unidade = atendimento.getUnidade();
+		this.numeroTombamento = dto.getNumeroTombamento();
+		this.atendimento = atendimento;
+		this.inUse = false;
 	}
 
 }

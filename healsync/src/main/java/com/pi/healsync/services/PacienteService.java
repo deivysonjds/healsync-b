@@ -52,4 +52,16 @@ public class PacienteService {
         }
         pacienteRepository.deleteById(id);
     }
+
+    @Transactional
+    public Paciente update(Paciente paciente) {
+        if (!pacienteRepository.existsById(paciente.getId())) {
+            throw new NoSuchException("paciente");
+        }
+        try {
+            return pacienteRepository.save(paciente);
+        } catch (Exception e) {
+            throw new ObjectNotCreated(e);
+        }
+    }
 }

@@ -17,10 +17,12 @@ public class AtendimentoResponseDTO {
     private UUID id;
     private String sala;
     private int ordem;
+    private String typeSala;
 
     public AtendimentoResponseDTO(Atendimento atendimento) {
         id = atendimento.getId();
         sala = atendimento.getSala();
         ordem = atendimento.getOrdem();
+        typeSala = atendimento.getTypeSala().name();
     }
 }

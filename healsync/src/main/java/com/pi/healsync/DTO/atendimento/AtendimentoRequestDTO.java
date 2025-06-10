@@ -12,4 +12,5 @@ import lombok.Setter;
 public class AtendimentoRequestDTO {
     private String sala;
     private int ordem;
+    private String typeSala;
 }

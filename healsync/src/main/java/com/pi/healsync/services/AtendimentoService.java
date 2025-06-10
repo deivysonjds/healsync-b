@@ -33,13 +33,13 @@ public class AtendimentoService {
         if (atendimento.isPresent()) {
             return atendimento.get();
         } else {
-            throw new NoSuchException("atendiemnto");
+            throw new NoSuchException("atendimento");
         }
     }
 
     @Transactional(readOnly = true)
-    public List<Atendimento> findAll() {
-        return atendimentoRepository.findAll();
+    public List<Atendimento> findByFluxoId(UUID fluxoId) {
+        return atendimentoRepository.findByFluxoId(fluxoId);
     }
 
     @Transactional
@@ -50,5 +50,15 @@ public class AtendimentoService {
         atendimentoRepository.deleteById(id);
     }
 
-
+    @Transactional
+    public Atendimento update(Atendimento atendimento) {
+        if (!atendimentoRepository.existsById(atendimento.getId())) {
+            throw new NoSuchException("atendimento");
+        }
+        try {
+            return atendimentoRepository.save(atendimento);
+        } catch (Exception e) {
+            throw new ObjectNotCreated(e);
+        }
+    }
 }
