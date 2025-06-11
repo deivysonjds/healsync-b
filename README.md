@@ -26,18 +26,18 @@ Repositório oficial do **backend da plataforma HealSync**, um sistema de gerenc
 ## 📁 Estrutura do Projeto
 
 📦 src
-┣ 📂main
-┃ ┣ 📂java/com/healsync
-┃ ┃ ┣ 📂controllers → Endpoints REST (pacientes, atendimentos, funcionários, etc)
-┃ ┃ ┣ 📂services → Regras de negócio
-┃ ┃ ┣ 📂repositories → Interfaces JPA
-┃ ┃ ┣ 📂models → Entidades JPA
-┃ ┃ ┣ 📂DTO → Data Transfer Objects
-┃ ┃ ┣ 📂securiy → Configurações de segurança, CORS, JWT, etc.
-┃ ┃ ┗ 📂exceptions → Tratamento de exceções globais
-┃ ┗ 📂resources
-┃ ┣ 📄 application.yml → Configurações de ambiente
-┗ 📂test → Testes automatizados
+┣ 📂main  
+┃ ┣ 📂java/com/healsync  
+┃ ┃ ┣ 📂controllers → Endpoints REST (pacientes, atendimentos, funcionários, etc)  
+┃ ┃ ┣ 📂services → Regras de negócio  
+┃ ┃ ┣ 📂repositories → Interfaces JPA  
+┃ ┃ ┣ 📂models → Entidades JPA  
+┃ ┃ ┣ 📂DTO → Data Transfer Objects  
+┃ ┃ ┣ 📂securiy → Configurações de segurança, CORS, JWT, etc.  
+┃ ┃ ┗ 📂exceptions → Tratamento de exceções globais  
+┃ ┗ 📂resources  
+┃ ┣ 📄 application.yml → Configurações de ambiente  
+┗ 📂test → Testes automatizados  
 
 ---
 
@@ -77,7 +77,7 @@ A API utiliza autenticação baseada em **JWT (JSON Web Tokens)**. As rotas prot
 
 A documentação interativa pode ser acessada via:
 
-> 🔍 `http://localhost:8080/swagger-ui/index.html` - localmente
+> 🔍 `http://localhost:8080/swagger-ui/index.html` - localmente  
 > [swagger](https://healsync-b-production.up.railway.app/swagger-ui/index.html#/)
 
 ---
