@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/unidades")
@@ -107,6 +109,22 @@ public class UnidadeController {
         }
 
         return ResponseEntity.ok().body(null);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UnidadeResponseDto> update(
+        @RequestBody UnidadeRequestDto unidadeRequestDto
+    )
+    {
+        Unidade unidade = new Unidade(unidadeRequestDto);
+        try {
+            unidade = unidadeService.update(unidade);
+        } catch (ObjectNotCreated e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        UnidadeResponseDto responseDto = new UnidadeResponseDto(unidade);
+        return ResponseEntity.ok().body(responseDto);
     }
     
 }
