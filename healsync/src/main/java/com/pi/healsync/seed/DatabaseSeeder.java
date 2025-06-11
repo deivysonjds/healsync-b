@@ -74,7 +74,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         funcionario.setSenha("teste123@");
         funcionario.setHospital(hospital);
         funcionario.setUnidade(unidade);
-        funcionarioService.insert(funcionario);
+        funcionarioService.insert(funcionario, hospital.getId());
         
     }
 }

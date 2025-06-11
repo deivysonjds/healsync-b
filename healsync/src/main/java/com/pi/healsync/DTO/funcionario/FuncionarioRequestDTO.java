@@ -1,4 +1,5 @@
 package com.pi.healsync.DTO.funcionario;
+import com.pi.healsync.models.Endereco;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
@@ -18,6 +19,7 @@ public class FuncionarioRequestDTO {
     private int age;
     private String cpf;
     private String phone;
+    private Endereco endereco;
     private String rg;
     private String role;
     private String password;

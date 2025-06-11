@@ -1,12 +1,17 @@
 package com.pi.healsync.services;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.pi.healsync.DTO.funcionario.FuncionarioRequestDTO;
+import com.pi.healsync.repositories.HospitalRepository;
+import com.pi.healsync.models.Hospital;
+import com.pi.healsync.models.Funcionario;
 import com.pi.healsync.repositories.FuncionarioRepository;
 import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.exceptions.ObjectNotCreated;
-import com.pi.healsync.models.Funcionario;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,6 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class FuncionarioService {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private HospitalRepository hospitalRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -43,27 +51,21 @@ public class FuncionarioService {
         return funcionario.get();
     }
 
-    @Transactional
-    public Funcionario insert(Funcionario funcionario) {
-        Funcionario funcionarioRep;
-
-        String senhaEncode = passwordEncoder.encode(funcionario.getSenha());
-        funcionario.setSenha(senhaEncode);
-
-        try {
-            funcionarioRep = funcionarioRepository.save(funcionario);
-        } catch (Exception e) {
-            throw new ObjectNotCreated(e);
-        }
-        return funcionarioRep;
+    @Transactional(readOnly = true)
+    public List<Funcionario> findAllByHospital(Hospital hospital) {
+        return funcionarioRepository.findByHospital(hospital);
     }
 
     @Transactional
-    public Funcionario update(Funcionario funcionario) {
-        if (!funcionarioRepository.existsById(funcionario.getId())) {
-            throw new NoSuchException("Funcionario");
+    public Funcionario insert(Funcionario funcionario, UUID hospitalId) {
+        Optional<Hospital> hospitalOptional = hospitalRepository.findById(hospitalId);
+        if (!hospitalOptional.isPresent()) {
+            throw new NoSuchException("Hospital");
         }
 
+        funcionario.setHospital(hospitalOptional.get());
+
+        // Encodar a senha
         String senhaEncode = passwordEncoder.encode(funcionario.getSenha());
         funcionario.setSenha(senhaEncode);
 
@@ -72,6 +74,25 @@ public class FuncionarioService {
         } catch (Exception e) {
             throw new ObjectNotCreated(e);
         }
+    }
+
+    @Transactional
+    public Funcionario update(Funcionario funcionario, FuncionarioRequestDTO dto) {
+        // Atualize os atributos
+        funcionario.setName(dto.getName());
+        funcionario.setCpf(dto.getCpf());
+        funcionario.setAge(dto.getAge());
+        funcionario.setEndereco(dto.getEndereco());
+        funcionario.setRg(dto.getRg());
+        funcionario.setEmail(dto.getEmail());
+        funcionario.setTelefone(dto.getPhone());
+        funcionario.setRole(dto.getRole());
+        // Se desejar, possa atualizar a senha aqui se ela foi informada
+        if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+            // código para criptografar senha
+            funcionario.setSenha(dto.getPassword());
+        }
+        return funcionarioRepository.save(funcionario);
     }
 
     @Transactional

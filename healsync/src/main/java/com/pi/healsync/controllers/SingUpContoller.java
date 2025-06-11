@@ -29,14 +29,14 @@ public class SingUpContoller {
     public ResponseEntity<String> postMethodName(@RequestBody SignUpDTO dto) {
 
         try {
-            
+
             Hospital hospital = new Hospital();
             hospital.setName(dto.getName());
             hospital.setCnpj(dto.getCnpj());
             hospital.setEmail(dto.getEmail());
             hospital.setPhone(dto.getPhone());
             hospital = hospitalService.insert(hospital);
-    
+
             Funcionario funcionario = new Funcionario();
             funcionario.setName(dto.getNameUser());
             funcionario.setEmail(dto.getEmailUser());
@@ -47,12 +47,12 @@ public class SingUpContoller {
             funcionario.setRg(dto.getRg());
             funcionario.setRole("ADMIN");
             funcionario.setHospital(hospital);
-            funcionario = funcionarioService.insert(funcionario);
+            funcionario = funcionarioService.insert(funcionario, hospital.getId());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
         }
-        
+
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    
+
 }
