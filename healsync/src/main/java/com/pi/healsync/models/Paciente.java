@@ -36,6 +36,7 @@ public class Paciente extends Usuario {
         super(pacienteRequestDTO.getName(), pacienteRequestDTO.getEmail(), pacienteRequestDTO.getCpf(),
             pacienteRequestDTO.getTelefone(), pacienteRequestDTO.getRg());
         this.cns = pacienteRequestDTO.getCns();
+        
     }
 
 }
