@@ -8,13 +8,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.service.annotation.DeleteExchange;
 
 import com.pi.healsync.DTO.fluxo.FluxoRequestDTO;
 import com.pi.healsync.DTO.fluxo.FluxoResponseDTO;
+import com.pi.healsync.exceptions.NoSuchException;
 import com.pi.healsync.models.Fluxo;
 import com.pi.healsync.models.Unidade;
 import com.pi.healsync.services.FluxoService;
@@ -36,10 +39,41 @@ public class FluxoController {
         return ResponseEntity.ok().body(savedFluxoResponse);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity <FluxoResponseDTO> update (
+        @RequestBody FluxoRequestDTO dto,
+        @PathVariable UUID id
+        ) {
+        Fluxo fluxo = service.findById(id);
+        if (fluxo == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Unidade unidade = unidadeService.findById(dto.getUnidadeId());
+        Fluxo fluxoUpdate = new Fluxo(dto, unidade);
+        fluxoUpdate.setId(id);
+        Fluxo savedFluxo = service.update(fluxoUpdate);
+        FluxoResponseDTO savedFluxoResponse = new FluxoResponseDTO(savedFluxo);
+        
+        return ResponseEntity.ok().body(savedFluxoResponse);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity <FluxoResponseDTO> getById (@PathVariable UUID id) {
         Fluxo getFluxo = service.findById(id);
         return ResponseEntity.ok().body(new FluxoResponseDTO(getFluxo));
+    }
+
+    @DeleteExchange("/{id}")
+    public ResponseEntity <Void> delete (@PathVariable UUID id) {
+        try {
+            service.deleteById(id);
+            
+        } catch (NoSuchException e) {
+            return ResponseEntity.notFound().build();
+
+        }
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping

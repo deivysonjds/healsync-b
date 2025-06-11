@@ -113,12 +113,20 @@ public class UnidadeController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UnidadeResponseDto> update(
-        @RequestBody UnidadeRequestDto unidadeRequestDto
+        @RequestBody UnidadeRequestDto unidadeRequestDto,
+        @PathVariable UUID id
     )
-    {
-        Unidade unidade = new Unidade(unidadeRequestDto);
+    {      
+        Unidade unidade = unidadeService.findById(id);
+        if (unidade == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Unidade unidadeUpdate = new Unidade(unidadeRequestDto);
+        unidadeUpdate.setId(id);
+
         try {
-            unidade = unidadeService.update(unidade);
+            unidade = unidadeService.update(unidadeUpdate);
         } catch (ObjectNotCreated e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
