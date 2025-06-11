@@ -30,7 +30,7 @@ public class MonitorController {
     private AtendimentoService atendimentoService;
 
     @PostMapping
-        public ResponseEntity<MonitorResponseDTO> addMonitor(@RequestBody MonitorRequestDTO dto){
+    public ResponseEntity<MonitorResponseDTO> addMonitor(@RequestBody MonitorRequestDTO dto){
         Atendimento atendimento;
         try {
             atendimento = atendimentoService.findById(dto.getAtendimentoId());
@@ -64,5 +64,28 @@ public class MonitorController {
 
         MonitorResponseDTO dto = new MonitorResponseDTO(monitor);
         return ResponseEntity.ok(dto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MonitorResponseDTO> update(
+        @RequestBody MonitorRequestDTO dto,
+        @PathVariable UUID id
+        ){
+        Atendimento atendimento;
+        try {
+            atendimento = atendimentoService.findById(dto.getAtendimentoId());
+        } catch (NoSuchException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+        Monitor monitor = new Monitor(dto, atendimento);
+
+        monitor = service.insert(monitor);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand()
+                .toUri();
+
+        MonitorResponseDTO responseDto = new MonitorResponseDTO(monitor);
+        return ResponseEntity.created(uri).body(responseDto);
     }
 }
