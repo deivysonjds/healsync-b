@@ -1,4 +1,5 @@
 package com.pi.healsync.models;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +24,9 @@ public class Fluxo {
     private String nameEspecialist;
     @OneToMany(mappedBy = "fluxo", cascade = CascadeType.ALL)
     private List<Atendimento> atendimentos;
+
+    @OneToMany(mappedBy = "fluxo", cascade = CascadeType.ALL)
+    private List<Fila> filas = new ArrayList<>();
     
     @ManyToOne
     @JoinColumn(name = "unidade_id", nullable = false)
@@ -31,5 +35,10 @@ public class Fluxo {
     public Fluxo(FluxoRequestDTO fluxoRequestDTO, Unidade unidade) {
         this.nameEspecialist = fluxoRequestDTO.getNameSpecialist();
         this.unidade = unidade;
+    }
+
+    public void addFila(Fila fila) {
+        fila.setFluxo(this);
+        this.filas.add(fila);
     }
 }

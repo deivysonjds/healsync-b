@@ -1,6 +1,5 @@
 package com.pi.healsync.DTO.unidade;
 
-import com.pi.healsync.models.Endereco;
 import com.pi.healsync.DTO.endereco.EnderecoRequestDTO;
 
 import lombok.AllArgsConstructor;

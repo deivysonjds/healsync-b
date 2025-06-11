@@ -1,5 +1,7 @@
 package com.pi.healsync.DTO.paciente;
 
+import com.pi.healsync.DTO.endereco.EnderecoRequestDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +19,5 @@ public class PacienteRequestDTO {
     private String telefone;
     private String rg;
     private String cns;
+    private EnderecoRequestDTO endereco;
 }

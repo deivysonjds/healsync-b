@@ -28,6 +28,15 @@ public class PacienteService {
     }
 
     @Transactional(readOnly = true)
+    public Paciente findByCpf(String cpf) {
+        Paciente paciente = pacienteRepository.findByCpf(cpf);
+        if (paciente == null) {
+            throw new NoSuchException("paciente");
+        }
+        return paciente;
+    }
+
+    @Transactional(readOnly = true)
     public Paciente findById(UUID id) {
        Optional<Paciente> paciente = pacienteRepository.findById(id);
         if (!paciente.isPresent()) {

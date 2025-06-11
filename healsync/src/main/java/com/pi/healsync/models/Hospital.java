@@ -32,7 +32,6 @@ public class Hospital {
     @Column(unique = true, nullable = false)
     private String phone;
 
-    @Column
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
     private List<Unidade> unidades = new ArrayList<>();
 

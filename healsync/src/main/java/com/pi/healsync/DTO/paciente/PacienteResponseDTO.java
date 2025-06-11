@@ -2,6 +2,7 @@ package com.pi.healsync.DTO.paciente;
 
 import java.util.UUID;
 
+import com.pi.healsync.DTO.endereco.EnderecoResponseDTO;
 import com.pi.healsync.models.Paciente;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +20,8 @@ public class PacienteResponseDTO {
     private String email;
     private int age;
     private String cpf;
-    private String endereco;
+    private EnderecoResponseDTO endereco;
+    private String senha;
     private String telefone;
     private String rg;
     private String cns;
