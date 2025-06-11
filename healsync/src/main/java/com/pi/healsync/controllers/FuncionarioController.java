@@ -2,7 +2,6 @@ package com.pi.healsync.controllers;
 
 import com.pi.healsync.exceptions.ObjectNotCreated;
 import com.pi.healsync.models.Hospital;
-import com.pi.healsync.repositories.FuncionarioRepository;
 import com.pi.healsync.services.HospitalService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -53,9 +52,7 @@ public class FuncionarioController {
             @RequestBody FuncionarioRequestDTO dto,
             @RequestHeader("Authorization") String authToken
     ) {
-        String token = authToken.substring(7);
         try {
-            UUID hospitalId = jwtUtil.extractHospitalId(token);
             Funcionario existingFuncionario = funcionarioService.findById(id);
             // Verifique se o funcionário pertence ao hospital (opcional)
             // Atualize os dados do funcionário com os do DTO
@@ -94,7 +91,6 @@ public class FuncionarioController {
     @GetMapping("/{id}")
     public ResponseEntity<FuncionarioResponseDTO> getFuncionarioById(@RequestHeader("Authorization") String authToken, @PathVariable UUID id) {
 
-        String token = authToken.substring(7);
         try {
             Funcionario funcionario = funcionarioService.findById(id);
             return ResponseEntity.ok(new FuncionarioResponseDTO(funcionario));
@@ -103,5 +99,18 @@ public class FuncionarioController {
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(
+        @PathVariable UUID id
+    ){  
+        try {
+            
+            funcionarioService.deleteById(id);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().build();
     }
 }
