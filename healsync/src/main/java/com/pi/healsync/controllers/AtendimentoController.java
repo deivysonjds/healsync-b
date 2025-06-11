@@ -93,6 +93,7 @@ public class AtendimentoController {
         return ResponseEntity.ok().body(new AtendimentoResponseDTO(atendimento));
     }
 
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         try {

@@ -24,16 +24,16 @@ public class EnderecoController {
     private EnderecoService service;
 
     @PostMapping
-        public ResponseEntity<EnderecoResponseDTO> addEndereco(@RequestBody EnderecoRequestDTO dto){
-        
-        Endereco endereco = new Endereco(dto);
+    public ResponseEntity<EnderecoResponseDTO> addEndereco(@RequestBody EnderecoRequestDTO dto){
+    
+    Endereco endereco = new Endereco(dto);
 
-        endereco = service.insert(endereco);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(endereco.getId())
-                .toUri();
+    endereco = service.insert(endereco);
+    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(endereco.getId())
+            .toUri();
 
-        EnderecoResponseDTO responseDto = new EnderecoResponseDTO(endereco);
-        return ResponseEntity.created(uri).body(responseDto);
+    EnderecoResponseDTO responseDto = new EnderecoResponseDTO(endereco);
+    return ResponseEntity.created(uri).body(responseDto);
     }
 
     @GetMapping("/{id}")
@@ -49,5 +49,6 @@ public class EnderecoController {
         return ResponseEntity.ok().body(dto);
 
     }
+
 
 }
