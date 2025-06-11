@@ -78,6 +78,6 @@ A API utiliza autenticação baseada em **JWT (JSON Web Tokens)**. As rotas prot
 A documentação interativa pode ser acessada via:
 
 > 🔍 `http://localhost:8080/swagger-ui/index.html` - localmente  
-> [swagger](https://healsync-b-production.up.railway.app/swagger-ui/index.html#/)
+> 🔍 [swagger](https://healsync-b-production.up.railway.app/swagger-ui/index.html#/) - em produção
 
 ---
