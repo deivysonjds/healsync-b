@@ -25,7 +25,7 @@ Repositório oficial do **backend da plataforma HealSync**, um sistema de gerenc
 
 ## 📁 Estrutura do Projeto
 
-📦 src
+📦 src  
 ┣ 📂main  
 ┃ ┣ 📂java/com/healsync  
 ┃ ┃ ┣ 📂controllers → Endpoints REST (pacientes, atendimentos, funcionários, etc)  
