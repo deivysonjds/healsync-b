@@ -5,7 +5,7 @@ projeto da cadeira de projeto integrador e poo do 3° semestre do curso de siste
 
 Repositório oficial do **backend da plataforma HealSync**, um sistema de gerenciamento de **atendimentos, pacientes e funcionários** para instituições de saúde. Este serviço é construído com **Java 17**, **Spring Boot**, e segue princípios RESTful, pronto para integração com o frontend [HealSync Frontend]((https://github.com/deivysonjds/healsync-f) (React + Next.js).
 
-🔗 Repositório do frontend: [https://github.com/deivysonjds/healsync-f](https://github.com/deivysonjds/healsync-f)
+🔗 Repositório do frontend: [https://github.com/deivysonjds/healsync-f]https://github.com/deivysonjds/healsync-f)
 
 ---
 
